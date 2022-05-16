@@ -1,0 +1,232 @@
+<!--
+Namn: Mohammed Shakir
+Personnummer: 010528-0770
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+        <title>Hammurabi</title>
+        <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        charset="UTF-8"
+        />
+		<link rel="stylesheet" type="text/css" href="hammurabi.css">
+		<script type="text/javascript" src="hammurabi.js">
+		</script>
+	</head>
+
+    <body onload="gameStart();">
+        <div>
+            <div id="header">
+                <h1 id="title">Hammurabi</h1>
+            </div>
+            <div id="top">
+
+                <div id="popup">
+                    <h2 id="rules">Regler:</h2>
+
+                    <ol>
+                        <li>
+                            Spelet varar 10 år, med ett år som en tur.
+                        </li>
+
+                        <li>
+                            Varje år anger du hur många buskar spannmål som ska
+                            avsättas för att köpa (eller sälja) tunnland mark,
+                            mata din befolkning och plantera grödor för nästa år.
+                        </li>
+
+                        <li>
+                            Varje person behöver 20 buskor spannmål varje år för
+                            att leva och kan tillåta högst 10 tunnland mark.
+                        </li>
+
+                        <li>
+                            Varje tunnland mark kräver en busk korn för att
+                            plantera frön.
+                        </li>
+
+                        <li>
+                            Priset på varje tunnland mark varierar från 17
+                            buskar per tunnland till 26 bushels.
+                        </li>
+
+                        <li>
+                            Om förhållandena i ditt land någonsin blir dåliga kommer
+                            folket att störta dig och du kommer inte att avsluta
+                            din tioårsperiod.
+                        </li>
+
+                        <li>
+                            Om du når det elfte året kommer din regel att utvärderas
+                            och du kommer att rankas mot stora siffror i historien.
+                        </li>
+                    </ol>
+
+                    <form>
+                        <button type="button" id="close" onclick="openForm()">
+                            Stäng
+                        </button>
+                    </form>
+                </div>
+
+                <div id="game">
+                    <h2 id="year">Årsrapporten:</h2>
+
+                    <ul id="people">
+                        <h2 id="humans">Människor:</h2>
+                        <li id="starved">Svältade:</li>
+                        <li id="newcomers">Nykomlingar:</li>
+                        <li id="population">Befolkning:</li>
+                    </ul>
+
+                    <ul id="economy">
+                        <h2 id="money">Ekonomi:</h2>
+                        <li id="acres">Acres:</li>
+                        <li id="bushels">Buskar:</li>
+                        <li id="harvest">Skörd:</li>
+                        <li id="rats">Råttor:</li>
+                        <li id="price">Pris:</li>
+                    </ul>
+
+                    <form>
+                        <fieldset class="fieldset">
+                            <legend>
+                                Acres att sälja / köpa
+                                <span id="outputAcrestosellbuy"></span>
+                            </legend>
+                            
+                            <input type="button" value="-"
+                            id="minusbuttonAcrestosellbuy"
+                            onclick="onChangeAcres('minusbuttonAcrestosellbuy');">
+
+                            <input type="range" id="sliderAcrestosellbuy"
+                            onchange="onChangeAcres('sliderAcrestosellbuy');">
+                            
+                            <input type="button" value="+"
+                            id="plusbuttonAcrestosellbuy"
+                            onclick="onChangeAcres('plusbuttonAcrestosellbuy');">
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>
+                                Mata människor
+                                <span id="outputFeedpeople"></span>
+                            </legend>
+
+                            <input type="button" value="-"
+                            id="minusbuttonFeedpeople"
+                            onclick="onChangeFeeding('minusbuttonFeedpeople');">
+
+                            <input type="range" id="sliderFeedpeople"
+                            onchange="onChangeFeeding('sliderFeedpeople');">
+
+                            <input type="button" value="+" id="plusbuttonFeedpeople"
+                            onclick="onChangeFeeding('plusbuttonFeedpeople');">
+                        </fieldset>
+
+                        <fieldset class="fieldset">
+                            <legend>
+                                Plantera med utsäde
+                                <span id="outputPlantwithseed"></span>
+                            </legend>
+
+                            <input type="button" value="-"
+                            id="minusbuttonPlantwithseed"
+                            onclick="onChangePlanting('minusbuttonPlantwithseed');">
+
+                            <input type="range" id="sliderPlantwithseed"
+                            onchange="onChangePlanting('sliderPlantwithseed');">
+
+                            <input type="button" value="+"
+                            id="plusbuttonPlantwithseed"
+                            onclick="onChangePlanting('plusbuttonPlantwithseed');">
+                        </fieldset>
+
+                        <button type="button" onclick="gameStart();">
+                            Starta om
+                        </button>
+
+                        <button type="button" id="start" onclick="finishTurn();">
+                            Kör!
+                        </button>
+
+                        <button type="button" id="help" onclick="closeForm()">
+                            Hjälp
+                        </button>
+                    </form>
+                </div>
+
+                <div id="hammurabi">
+                    <h2 id="who">Vem är Hammurabi?</h2>
+
+                    <p>
+                        Hammurabi var en kung i forntida Babylonien, han föddes 1810
+                        f.Kr. och dog 1750 f.Kr., han var den sjätte härskaren över
+                        den 1: a dynastin i Babylon. Kung Hammurabi är mest känd för
+                        sin tidiga lagar, som vi hänvisar till med hans namn,
+                        Hammurabis lagar var en av de tidigaste och mest
+                        fullständiga skriftliga juridiska lagar, den innehåller
+                        282 regler. Hammurabi kunde omvandla en instabil samling
+                        av stadsstater till ett starkt imperium som sträckte sig
+                        över forntida Mesopotamien. Exempel på hans lag:
+                        <br>
+                        <br>
+                        1. Om en läkare läker det brutna benet eller den sjuka mjuka
+                        delen av en man, ska patienten betala läkaren fem shekels
+                        pengar.
+                        <br>
+                        <br>
+                        2. Om en man slår en födslad kvinna så att hon förlorar sitt
+                        ofödda barn, ska han betala tio siklar för hennes förlust.
+                        <br>
+                        <br>
+                        3. Om någon begår ett rån och fångas, skall han dödas.
+                        <br>
+                        <br>
+                        4. Om någon tar en manlig eller kvinnlig slav från hovet,
+                        eller en manlig eller kvinnlig slav av en befriad man,
+                        utanför stadens portar, ska han dödas.
+                    </p>
+                </div>
+
+                <div id="info">
+                    <h2 id="about">Om spelet</h2>
+
+                    <p>
+                        Hammurabi är ett textbaserat videospel skrivet av Doug
+                        Dyment 1968 på FOCAL-språket men ändrades senare till
+                        BASIC av David H. Ahl. Detta spel är ett av de tidigaste
+                        datorspelen. För att förhindra hungersnöd måste spelaren
+                        hantera produktionen av korn i en stad, mätt i buskar,
+                        genom att allokera en del till plantering, en del till
+                        konsumtion av medborgarna och resten till strumpor i silor,
+                        vilket kan vara attackerad av råttor; man kan också köpa och
+                        sälja tunnland jordbruksmark.
+                    </p>
+
+                    <h2 id="source">Källor</h2>
+                    
+                    <a
+                        id="link"
+                        href="https://www.biography.com/political-figure/hammurabi">
+                        https://www.biography.com/political-figure/hammurabi
+                    </a>
+                    <br>
+                    <br>
+                    <a
+                        id="link"
+                        href="https://sharebrown.weebly.com/blog/
+                        hammurabi-computer-game">
+                        https://sharebrown.weebly.com/blog/hammurabi-computer-game
+                    </a>
+                </div>
+            </div>
+        </div>
+	</body>
+
+</html>
